@@ -4,7 +4,7 @@
 
 [Band Protocol](https://bandprotocol.com) is an all-in-one platform for building and managing decentralized token-curated communities. The protocol allows developers to build decentralized communities with their own unique crypto tokens, and utilize prebuilt cryptoeconomic modules in the communities. Community tokens are algorithmically backed using continuous bonding curve to guarantee their values. Band Protocol is currently live on [Rinkeby](https://rinkeby.io) testnet, so you can start BUIDLing applications on it right now!
 
-```cpp
+```solidity
 int x = 3
 ```
 
