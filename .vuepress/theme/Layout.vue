@@ -153,8 +153,8 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css?family=Source+Code+Pro');
 </style>
-<style src="prismjs/themes/prism-tomorrow.css"></style>
 <style src="./styles/theme.styl" lang="stylus"></style>
+<style src="./styles/prism-style.css"></style>
 <style>
 .content {
   margin-top: 25px !important;
