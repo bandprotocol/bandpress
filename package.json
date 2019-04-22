@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "start": "vuepress dev"
+  },
   "resolutions": {
     "webpack-dev-middleware": "3.6.0"
   },

@@ -150,17 +150,57 @@ export default {
 };
 </script>
 
-
+<style>
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro');
+</style>
 <style src="prismjs/themes/prism-tomorrow.css"></style>
 <style src="./styles/theme.styl" lang="stylus"></style>
 <style>
 .content {
   margin-top: 25px !important;
 }
+code {
+  font-family: 'Source Code Pro';
+}
 @font-face {
-  font-family: "Avenir";
-  src: url("../fonts/avenir.ttf") format("truetype");
-  font-weight: normal;
+  font-family: 'Avenir';
+  src: url('../fonts/Avenir.ttf');
   font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Avenir';
+  src: url('../fonts/Avenir-Oblique.ttf');
+  font-style: italic;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Avenir';
+  src: url('../fonts/Avenir-Medium.ttf');
+  font-style: normal;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Avenir';
+  src: url('../fonts/Avenir-Bold.ttf');
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Avenir';
+  src: url('../fonts/Avenir-Black.ttf');
+  font-style: normal;
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: 'Avenir';
+  src: url('../fonts/Avenir-Light.ttf');
+  font-style: normal;
+  font-weight: 300;
 }
 </style>
