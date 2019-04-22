@@ -42,7 +42,7 @@ body
 
 .sidebar
   font-size 15px
-  background-color #fff
+  background-color #f8f8ff
   width $sidebarWidth
   position fixed
   z-index 10
@@ -94,6 +94,14 @@ a
     transform scaleX(0)
   a:hover:after
     transform scaleX(1)
+
+.sidebar
+  a.sidebar-link
+    padding: 0.35rem 2rem 0.35rem 2rem
+  li:not(.sidebar-sub-header) > a.sidebar-link
+    font-weight: 600;
+    font-size: 1.05em;
+    color: #565093;
 
 p a code
   font-weight 400
