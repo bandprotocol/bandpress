@@ -1,4 +1,7 @@
 module.exports = {
+  head: [
+    ['link', { rel: 'icon', href: '/assets/favicon.ico' }],
+  ],
   themeConfig: {
     sidebar: [
       "/", 

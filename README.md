@@ -10,7 +10,7 @@ Band Protocol is currently [live](https://data.bandprotocol.com) on Rinkeby test
 
 1. **Price Feed Endpoint** [0xTODO...](https://rinkeby.etherscan.io) for hourly exchange rates of BTC/USD, ETH/USD, and LTC/USD.
 2. **Sports Endpoint** [0xTODO...](https://rinkeby.etherscan.io) for sport results 4 major leagues: [NFL](https://www.nfl.com), [NBA](https://www.nba.com/), [MLB](https://www.mlb.com/), and [EPL](https://www.premierleague.com/).
-3. **Lotteries Endpoint** [0xTODO...](https://rinkeby.etherscan.io) for up-to-date US [Powerball](www.powerball.com) and [MegaMillion](www.megamillions.com/) winning numbers.
+3. **Lotteries Endpoint** [0xTODO...](https://rinkeby.etherscan.io) for up-to-date US [Powerball](www.powerball.com) and [MegaMillions](www.megamillions.com/) winning numbers.
 
 See [Data Query](/docs/data-query.html) section for technical explanation of how to utilize these data endpoints.
 
@@ -26,4 +26,4 @@ Learn more about Band Protocol's architecture by continuing on to [Architecture]
 
 ### 👨‍🔧️ BUIDL
 
-Eager to get your hands dirty with Band Protocol? Head over to [Data Query](/docs/data-query.html) to learn how to leverage Band Protocol for your ÐApps. 
+Eager to get your hands dirty with Band Protocol? Head over to [Data Query](/docs/data-query.html) and learn how to leverage Band Protocol for your next ÐApps. 
