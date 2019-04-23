@@ -1,35 +1,29 @@
 # Band Protocol Overview
 
-## What is Band Protocol?
+[Band Protocol](https://bandprotocol.com) is a protocol for decentralized data curation on the Ethereum blockchain. Using various token economics, the protocol incentivizes multiple independent parties to work cooperatively to provide trusted data. Curated information is available on-chain, ready to be consumed by other blockchain protocols or decentralized applications. **Band Protocol serves as the data layer of the Web3 ecosystem, bridging real world and/or subjective information to the smart contract world.**
 
-[Band Protocol](https://bandprotocol.com) is an all-in-one platform for building and managing decentralized token-curated communities. The protocol allows developers to build decentralized communities with their own unique crypto tokens, and utilize prebuilt cryptoeconomic modules in the communities. Community tokens are algorithmically backed using continuous bonding curve to guarantee their values. Band Protocol is currently live on [Rinkeby](https://rinkeby.io) testnet, so you can start BUIDLing applications on it right now!
+<!-- yo ![An image](/assets/overview.png) -->
 
-```solidity
-int x = 3
-```
+## Open Data Layer for ÐApps
 
-## What applications can be built with Band?
+Band Protocol is currently [live](https://data.bandprotocol.com) on Rinkeby testnet, so you can start experimenting with it right now. As of current, the protocol officially supports three public data endpoints:
 
-Band Protocol, think of If you need .
+1. **Price Feed Endpoint** [0xTODO...](https://rinkeby.etherscan.io) for hourly exchange rates of BTC/USD, ETH/USD, and LTC/USD.
+2. **Sports Endpoint** [0xTODO...](https://rinkeby.etherscan.io) for sport results 4 major leagues: [NFL](https://www.nfl.com), [NBA](https://www.nba.com/), [MLB](https://www.mlb.com/), and [EPL](https://www.premierleague.com/).
+3. **Lotteries Endpoint** [0xTODO...](https://rinkeby.etherscan.io) for up-to-date US [Powerball](www.powerball.com) and [MegaMillion](www.megamillions.com/) winning numbers.
 
-1. You need
+See [Data Query](/docs/data-query.html) section for technical explanation of how to utilize these data endpoints.
 
-We are actively exploring other use cases that can further improve Band Protocol. If you have any feature suggestion or specific need with Band Protocol, please drop us a line at [connect@bandprotocol.com](mailto:connect@bandprotocol).
+## Earn from Curating Datapoints
 
-## Why should you consider building with Band?
+Each datapoint in Band Protocol is governed by its own dedicated community. Anyone can join and help secure the community by purchasing and staking the community's token. Stakers collectively curate  data and ensure its trustworthiness. In return, they earn proportional portions of fees collected from data consumption. See [Delegated Curation](/docs/delegated-curation.html) and [Token Curated Registry](/docs/tcr.html) for more details.
 
-Building decentralized applications all by yourself is both hard and dangerous. Once smart contracts are deployed, they are out there _immutably_ and _permanently_. Band Protocol allows you to leverage existing bulletproof smart contracts with well-researched crypto mechanics that work. Additionally, Band Protocol provides you with external tooling to help you get up to speed, including JavaScript library and a web portal for users to interact with your community tokens, and gives your tokens instance liquidity via Band token. It takes less than 5 minutes to get a community up and running decentrally. Let's BUIDL
-
-## I'm Ready. What's next?
-
-### 🕵 Explore
-
-Band Protocol is currently live on testnet and curious developers are starting to experiment with the platform. You can visit [BandApp Portal](https://app.rinkeby.bandprotocol.com) to explore existing communities and buy their cool community tokens!
-
-### 👨‍🔧️ BUIDL
-
-Eager to get your hands dirty with Band Protocol? Head over to [XXX] to start building your first application.
+## What's next?
 
 ### 👨‍🔬️ Learn
 
-We know there is a lot to consume.
+Learn more about Band Protocol's architecture by continuing on to [Architecture](/docs/architecture.html) section. You will learn how different parts of Band Protocol come to work together.
+
+### 👨‍🔧️ BUIDL
+
+Eager to get your hands dirty with Band Protocol? Head over to [Data Query](/docs/data-query.html) to learn how to leverage Band Protocol for your ÐApps. 
