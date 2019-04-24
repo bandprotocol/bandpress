@@ -51,7 +51,7 @@ pre[class*="language-"] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: #6272a4;
+  color: #d3dcff;
 }
 
 .token.punctuation {
@@ -72,7 +72,7 @@ pre[class*="language-"] {
 
 .token.boolean,
 .token.number {
-  color: #38ff9d;
+  color: #ffa9ff;
 }
 
 .token.selector,
@@ -81,7 +81,7 @@ pre[class*="language-"] {
 .token.char,
 .token.builtin,
 .token.inserted {
-  color: #50fa7b;
+  color: #38ff9d;
 }
 
 .token.operator,
