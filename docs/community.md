@@ -5,7 +5,7 @@ Community is the most fundamental unit of Band Protocol. Band Protocol consists 
 ## Band Native Token
 
 ::: tip BAND ERC-20 Rinkeby Address
-[0xD6aE8250b8348C94847280928c79fb3b63cA453e](https://rinkeby.etherscan.io/token/0xD6aE8250b8348C94847280928c79fb3b63cA453e)
+[0x7d534Fe41A7443dCd1b62B6D843A07487f4cc4a4](https://rinkeby.etherscan.io/token/0x7d534Fe41A7443dCd1b62B6D843A07487f4cc4a4)
 :::
 
 The Band Protocol token ([BAND](https://rinkeby.etherscan.io/token/0xD6aE8250b8348C94847280928c79fb3b63cA453e)) is the native token of Band Protocol. It represents the collective ownership across all curation communities inside of the protocol. BAND token is implemented as an [ERC-20](https://eips.ethereum.org/EIPS/eip-20) compatible smart contract, and is used as collateral to mint any community token, using [dynamic bonding curve](/docs/bonding-curve.md) model. During testnet, BAND token is available for free from [BAND faucet](https://faucet.bandprotocol.com).
@@ -23,10 +23,10 @@ await bandClient
 ## Creating Community
 
 ::: tip BAND Community Factory Address
-[0xD6aE8250b8348C94847280928c79fb3b63cA453e](https://rinkeby.etherscan.io/address/0xD6aE8250b8348C94847280928c79fb3b63cA453e)
+[0x798686B18fb1E29b073401e62a5aFB8b145bD5C8](https://rinkeby.etherscan.io/address/0x798686B18fb1E29b073401e62a5aFB8b145bD5C8)
 :::
 
-Creating Band Protocol community can be done with a single JavaScript command, which will broadcast a `createCommunity` transaction to [BandRegistry smart contract](https://rinkeby.etherscan.io/address/0xb7F652Ffbd4Cb1eb8EC9E10E05B01204084ef903#writeContract). After the transaction is completed, an instance of community client will be returned. See sections [Bonding Curve](/docs/bonding-curve.md) and [Governance Parameters](/docs/parameters.md) for details regarding the respective parameters.
+Creating Band Protocol community can be done with a single JavaScript command, which will broadcast a `createCommunity` transaction to [BandRegistry smart contract](https://rinkeby.etherscan.io/address/0x798686B18fb1E29b073401e62a5aFB8b145bD5C8#writeContract). After the transaction is completed, an instance of community client will be returned. See sections [Bonding Curve](/docs/bonding-curve.md) and [Governance Parameters](/docs/parameters.md) for details regarding the respective parameters.
 
 ```javascript
 const communityClient = await bandClient.createCommunity({

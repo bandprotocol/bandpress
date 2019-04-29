@@ -15,7 +15,7 @@ console.log(await communityClient.getParametersAddress());
 
 - Community members can **propose** a change to one or more parameters. Once created, a proposal stays open for `params:min_expiration_time`.
 
-- While a proposal is open, community members can vote to approve or reject the proposal. When the voting period ends, if (1) more than `params:min_particiation_pct` percentage of token participated in the vote and (2) more than `params:support_required_pct` percentage of participating token voted for approval, the proposal is approved and the change(s) are applied immediately.
+- While a proposal is open, community members can **vote** to approve or reject the proposal. When the voting period ends, if (1) more than `params:min_particiation_pct` percentage of token participated in the vote and (2) more than `params:support_required_pct` percentage of participating token voted for approval, the proposal is approved and the change(s) are applied immediately.
 
 - Governance parameters of the governance contract itself can also be voted and changed throught the exact same process, though the old values are used until the proposal is approved.
 

@@ -26,9 +26,9 @@
 
 Band Protocol is currently [live](https://data.bandprotocol.com) on Rinkeby testnet, so you can start experimenting with it right now. While the protocol itself is not limitted to specific kinds of data, Band Protocol develops three pilot public data endpoints that are ready for on-chain comsumption today.
 
-1. **Price Feed Endpoint** [0xTODO...](https://rinkeby.etherscan.io) for hourly exchange rates of BTC/USD, ETH/USD, and LTC/USD.
-2. **Sports Endpoint** [0xTODO...](https://rinkeby.etherscan.io) for sport results 4 major leagues: [NFL](https://www.nfl.com), [NBA](https://www.nba.com/), [MLB](https://www.mlb.com/), and [EPL](https://www.premierleague.com/).
-3. **Lotteries Endpoint** [0xTODO...](https://rinkeby.etherscan.io) for up-to-date US [Powerball](https://www.powerball.com) and [MegaMillions](https://www.megamillions.com/) winning numbers.
+1. **Price Feed Endpoint** [0x8B3d...](https://rinkeby.etherscan.io/address/0x8B3dBb2Db70120Cf4D24c739E1c296DE98644238) for hourly exchange rates of BTC/USD, ETH/USD, and LTC/USD.
+2. **Sports Endpoint** [0x7d19...](https://rinkeby.etherscan.io/address/0x7d19771a15c1314be9Bd436092A727A70Edc6482) for sport results 4 major leagues: [NFL](https://www.nfl.com), [NBA](https://www.nba.com/), [MLB](https://www.mlb.com/), and [EPL](https://www.premierleague.com/).
+3. **Lotteries Endpoint** [0x6863...](https://rinkeby.etherscan.io/address/0x6863019Ec1A5f675ce64699020A338Ee2256B981) for up-to-date US [Powerball](https://www.powerball.com) and [MegaMillions](https://www.megamillions.com/) winning numbers.
 
 See [Data Query](/docs/data-query.html) section for technical explanation of how to utilize these data endpoints.
 

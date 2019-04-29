@@ -6,7 +6,7 @@ Token Curate DataSource (TCD) is a method for a community to collectively curate
 
 TCD is in many ways similar to [Delegated Proof of Stake](https://en.bitcoinwiki.org/wiki/DPoS) consensus. Community members collective elect data providers by staking their token in the name of the candidates. Data providers have the authority to provide data to the public, and earn a portion of fees collected from data query.
 
-- A community member who wishes to become a data provider deploys [Data Source Contract](/docs/tcd.md). He or she then **registers** to become a provider candidate by staking `min_provider_stake` token.
+- A community member who wishes to become a data provider deploys **Data Source Contract**. He or she then **registers** to become a provider candidate by staking `min_provider_stake` token.
 
 - Other community members can **vote** for a provider candidate they trust. Top `max_provider_count` data provider candidates by the total number of voting stake become **active data providers**.
 

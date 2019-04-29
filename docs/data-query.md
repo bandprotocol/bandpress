@@ -20,7 +20,7 @@ interface DataSource {
 ### Price Feed Query
 
 ::: tip Rinkeby Address
-[0x02557a5E05DeFeFFD4cAe6D83eA3d173B272c904](https://rinkeby.etherscan.io/address/0x02557a5e05defeffd4cae6d83ea3d173b272c904)
+[0x8B3dBb2Db70120Cf4D24c739E1c296DE98644238](https://rinkeby.etherscan.io/address/0x8B3dBb2Db70120Cf4D24c739E1c296DE98644238)
 :::
 
 The price feed endpoint allows smart contracts to query for recent cryptocurrency prices aggregated as the median value among multiple reputable exchanges. The endpoint currently supports `BTC/USD`, `ETH/USD`, and `LTC/USD` pairs. ÐApps can query for price information using `getAsNumber` function. Note that the returned value is multiplied by `10^18` to preserve decimal precisions.
@@ -28,7 +28,7 @@ The price feed endpoint allows smart contracts to query for recent cryptocurrenc
 ```typescript
 contract FooContract {
   DataSource public constant dataSource =
-    DataSource(0x02557a5E05DeFeFFD4cAe6D83eA3d173B272c904)
+    DataSource(0x8B3dBb2Db70120Cf4D24c739E1c296DE98644238)
 
   function foo() {
     // SOME CODE
@@ -43,23 +43,54 @@ contract FooContract {
 ### Sport Result Query
 
 ::: tip Rinkeby Address
-[0x02557a5E05DeFeFFD4cAe6D83eA3d173B272c904](https://rinkeby.etherscan.io/address/0x02557a5e05defeffd4cae6d83ea3d173b272c904)
+[0x7d19771a15c1314be9Bd436092A727A70Edc6482](https://rinkeby.etherscan.io/address/0x7d19771a15c1314be9Bd436092A727A70Edc6482)
 :::
 
-The sport endpoint provides the results of four major leagues: [NFL](https://www.nfl.com), [NBA](https://www.nba.com/), [MLB](https://www.mlb.com/), and [EPL](https://www.premierleague.com/).
+The sport endpoint provides the results of four major leagues: [NFL](https://www.nfl.com), [NBA](https://www.nba.com/), [MLB](https://www.mlb.com/), and [EPL](https://www.premierleague.com/). ÐApps can query for winning numbers using `getAsBytes32` function with key format `AAABBBB/YYYYMMDD/CCC-DDD{/HHMM}`, where:
 
-### Lottery Winning Number Query
+- `AAA` is the league unique identifier (`NFL`, `NBA`, `MLB`, or `EPL`)
+- `BBBB` is the season year of the league
+- `YYYYMMDDDD` is the year, month, and date when the match takes place
+- `CCC` is the home team 3 letter identifier
+- `DDD` is the away team 3 letter identifier
+- `HHMM` (optional) is the time when the match takes place (only for MLB)
 
-::: tip Rinkeby Address
-[0x02557a5E05DeFeFFD4cAe6D83eA3d173B272c904](https://rinkeby.etherscan.io/address/0x02557a5e05defeffd4cae6d83ea3d173b272c904)
-:::
-
-The lottery endpoint continuously feeds the results of the top two US lotteries, including [Powerball (PWB)](https://www.powerball.com) and [MegaMillions (MMN)](https://www.megamillions.com/). ÐApps can query for winning numbers using `getAsBytes32` function with key format `XXX/YYYYMMDD`. Each of the first 5 bytes represents each of the 5 white balls; the 6th byte represents the {Power|Gold} ball; and the 7th byte represents the winning multiplier.
+The result contains 2 bytes. The first byte is the home team's total score, and the second byte is the away team's total score.
 
 ```typescript
 contract FooContract {
   DataSource public constant dataSource =
-    DataSource(0x02557a5E05DeFeFFD4cAe6D83eA3d173B272c904)
+    DataSource(0x7d19771a15c1314be9Bd436092A727A70Edc6482)
+
+  function foo() {
+    // SOME CODE
+    bytes32 sportResult = dataSource
+      .getAsBytes32
+      .value(dataSource.getQueryPrice())("NBA2019/20190427/LAC-GSW");
+    assert (uint8(sportResult[0]) == 110); // The Clippers scored 110
+    assert (uint8(sportResult[1]) == 129); // The Warriors scored 129
+    // SOME CODE
+  }
+}
+```
+
+### Lottery Winning Number Query
+
+::: tip Rinkeby Address
+[0x6863019Ec1A5f675ce64699020A338Ee2256B981](https://rinkeby.etherscan.io/address/0x6863019Ec1A5f675ce64699020A338Ee2256B981)
+:::
+
+The lottery endpoint continuously feeds the results of the top two US lotteries, including [Powerball (PWB)](https://www.powerball.com) and [MegaMillions (MMN)](https://www.megamillions.com/). ÐApps can query for winning numbers using `getAsBytes32` function with key format `XXX/YYYYMMDD`, where:
+
+- `XXX` is the lottery unique identifier. `PWB` for Powerball and `MMN` for MegaMillions.
+- `YYYYMMDD` is the year, month, and date of the lottery.
+
+The result contains 7 bytes. Each of the first 5 bytes represents each of the 5 white balls; the 6th byte represents the {Power|Gold} ball; and the 7th byte represents the winning multiplier.
+
+```typescript
+contract FooContract {
+  DataSource public constant dataSource =
+    DataSource(0x6863019Ec1A5f675ce64699020A338Ee2256B981)
 
   function foo() {
     // SOME CODE
@@ -83,12 +114,12 @@ In addition to on-chain query using Solidity, Band Protocol's public data can al
 
 ### Price Feed Query
 
+[TODO]
+
 ### Sport Result Query
+
+[TODO]
 
 ### Lottery Winning Number Query
 
-For other endpoints,
-
-## Data Privacy
-
-It is important to note that since Band Protocol's data lives on the Ethereum blockchain,
+[TODO]

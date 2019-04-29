@@ -6,10 +6,10 @@ Band Protocol is a set of [smart contracts](https://github.com/bandprotocol/cont
 
 |     Contract     |  Type   |                                                            Address                                                            |
 | :--------------: | :-----: | :---------------------------------------------------------------------------------------------------------------------------: |
-| BandRegistry.sol | Factory | [0xF1acF885F27C4b87683F9700671d0e5320AF1EfD](https://rinkeby.etherscan.io/address/0xF1acF885F27C4b87683F9700671d0e5320AF1EfD) |
-|  BandToken.sol   | ERC-20  | [0x02557a5E05DeFeFFD4cAe6D83eA3d173B272c904](https://rinkeby.etherscan.io/address/0x02557a5e05defeffd4cae6d83ea3d173b272c904) |
+| BandRegistry.sol | Factory | [0x798686B18fb1E29b073401e62a5aFB8b145bD5C8](https://rinkeby.etherscan.io/address/0x798686B18fb1E29b073401e62a5aFB8b145bD5C8) |
+|  BandToken.sol   | ERC-20  | [0x7d534Fe41A7443dCd1b62B6D843A07487f4cc4a4](https://rinkeby.etherscan.io/address/0x7d534Fe41A7443dCd1b62B6D843A07487f4cc4a4) |
 
-In addition, Band Protocol has deployed **four** curation communities on Rinkeby testnet, including three contracts that use [token-curated data source](/docs/tcd.md), and one ([CoinHatcher.com](https://coinhatcher.com)) that uses [token-curated registry](/docs/tcr.md). The addresses of smart contracts associated with them are available [here](/docs/addresses.html).
+In addition, Band Protocol has deployed **four** curation communities on Rinkeby testnet, including three contracts that use [token-curated data source](/docs/tcd.md), and one ([CoinHatcher.com](https://coinhatcher.com)) that uses [token-curated registry](/docs/tcr.md). The addresses of smart contracts associated with them are available [here](/docs/data-query.html#on-chain-query-via-smart-contracts).
 
 ## Band.js JavaScript Library
 
@@ -52,7 +52,7 @@ Similarly to decimal number, Band Protocol represents percentage using `10000000
 ## Band GraphQL Public Endpoint
 
 ::: tip GraphQL Query Endpoint
-[https://graphql.rinkeby.bandprotocol.com/graphql](https://graphql.rinkeby.bandprotocol.com/graphql)
+[https://graphql.bandprotocol.com/graphql](https://graphql.bandprotocol.com/graphql)
 :::
 
 Band Protocol provides a standard [GraphQL](https://graphql.org/) query interface for data related to the protocol. Developers can fire HTTP requests directly to the endpoint to obtain data, or use familiar GraphQL client library such as [Apollo](https://apollographql.com/). See [Query Interface](/docs/data-query.md) for example usage.
