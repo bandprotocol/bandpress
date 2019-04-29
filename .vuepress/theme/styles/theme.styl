@@ -9,7 +9,7 @@
 html, body
   padding 0
   margin 0
-
+  
 body
   font-family: 'Avenir', sans-serif;
   -webkit-font-smoothing antialiased
@@ -19,6 +19,7 @@ body
 
 .page
   padding-left $sidebarWidth
+  padding-bottom 50vh
 
 .navbar
   position fixed
@@ -53,6 +54,16 @@ body
   box-sizing border-box
   border-right 1px solid $borderColor
   overflow-y auto
+  .sidebar-link
+    line-height 2em
+  .sidebar-sub-headers a.sidebar-link
+    line-height 1.8em
+  li:not(.sidebar-sub-header) > a.sidebar-link.active
+    border-left 0
+  li.sidebar-sub-header > a.sidebar-link.active
+    border-left 0
+    border-right 0.25rem solid
+    background linear-gradient(90deg, rgba(0,0,0,0), rgba(101, 87, 234, 0.24))
 
 .content:not(.custom)
   @extend $wrapper

@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "vuepress dev"
+    "start": "vuepress dev",
+    "deploy": "vuepress build . && firebase deploy"
   },
   "resolutions": {
     "webpack-dev-middleware": "3.6.0"
