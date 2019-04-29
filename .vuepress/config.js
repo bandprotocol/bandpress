@@ -1,20 +1,21 @@
 module.exports = {
-  head: [
-    ['link', { rel: 'icon', href: '/assets/favicon.ico' }],
-  ],
+  head: [["link", { rel: "icon", href: "/assets/favicon.ico" }]],
   themeConfig: {
     sidebar: [
-      "/", 
-      "docs/architecture", 
-      "docs/token-economy",
-      "docs/data-query",
-      "docs/delegated-curation",
+      "/",
+      "docs/prerequisite",
+      // "docs/architecture",
+      "docs/community",
+      "docs/bonding-curve",
+      "docs/parameters",
+      "docs/tcd",
       "docs/tcr",
+      "docs/data-query"
     ],
     logo: "/assets/logo.svg",
     nav: [
       { text: "Explorer", link: "https://data.bandprotocol.com" },
-      { text: "Curation Portal", link: "https://app.bandprotocol.com" },
+      { text: "Curation Portal", link: "https://app.bandprotocol.com" }
     ]
   }
 };

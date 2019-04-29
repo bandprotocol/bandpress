@@ -1,4 +1,4 @@
-# Data Query
+# Query Interface
 
 Band Protocol is designed with usage simplicity in mind. This section covers usage of the protocol from developer perspective, both for on-chain and off-chain data query.
 
@@ -17,9 +17,9 @@ interface DataSource {
 }
 ```
 
-### Price Feed Endpoint
+### Price Feed Query
 
-::: tip Rinkeby Address 
+::: tip Rinkeby Address
 [0x02557a5E05DeFeFFD4cAe6D83eA3d173B272c904](https://rinkeby.etherscan.io/address/0x02557a5e05defeffd4cae6d83ea3d173b272c904)
 :::
 
@@ -27,12 +27,12 @@ The price feed endpoint allows smart contracts to query for recent cryptocurrenc
 
 ```typescript
 contract FooContract {
-  DataSource public constant dataSource = 
+  DataSource public constant dataSource =
     DataSource(0x02557a5E05DeFeFFD4cAe6D83eA3d173B272c904)
-  
+
   function foo() {
     // SOME CODE
-    uint256 bitcoinPrice = 
+    uint256 bitcoinPrice =
       dataSource.getAsNumber.value(dataSource.getQueryPrice())("BTC/USD");
     assert (bitcoinPrice == 5579.13e18);  // Price is 5,579.13 USD per Bitcoin
     // SOME CODE
@@ -40,13 +40,13 @@ contract FooContract {
 }
 ```
 
-### Sport Result Endpoint
+### Sport Result Query
 
 ::: tip Rinkeby Address
 [0x02557a5E05DeFeFFD4cAe6D83eA3d173B272c904](https://rinkeby.etherscan.io/address/0x02557a5e05defeffd4cae6d83ea3d173b272c904)
 :::
 
-TODO
+The sport endpoint provides the results of four major leagues: [NFL](https://www.nfl.com), [NBA](https://www.nba.com/), [MLB](https://www.mlb.com/), and [EPL](https://www.premierleague.com/).
 
 ### Lottery Winning Number Query
 
@@ -58,12 +58,12 @@ The lottery endpoint continuously feeds the results of the top two US lotteries,
 
 ```typescript
 contract FooContract {
-  DataSource public constant dataSource = 
+  DataSource public constant dataSource =
     DataSource(0x02557a5E05DeFeFFD4cAe6D83eA3d173B272c904)
-  
+
   function foo() {
     // SOME CODE
-    bytes32 powerballResult = 
+    bytes32 powerballResult =
       dataSource.getAsBytes32.value(dataSource.getQueryPrice())("PWB/20190420");
     assert (uint8(powerballResult[0]) == 3);   // White Ball #1
     assert (uint8(powerballResult[1]) == 27);  // White Ball #2
@@ -73,10 +73,9 @@ contract FooContract {
     assert (uint8(powerballResult[5]) == 1);   // Power Ball #1
     assert (uint8(powerballResult[6]) == 3);   // Power Play Multiplier
     // SOME CODE
-  }    
+  }
 }
 ```
-
 
 ## Off-chain GraphQL-based Query
 
@@ -88,8 +87,8 @@ In addition to on-chain query using Solidity, Band Protocol's public data can al
 
 ### Lottery Winning Number Query
 
-For other endpoints, 
+For other endpoints,
 
 ## Data Privacy
 
-It is important to note that since Band Protocol's data lives on the Ethereum blockchain, 
+It is important to note that since Band Protocol's data lives on the Ethereum blockchain,
