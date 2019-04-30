@@ -1,6 +1,6 @@
 # Band Community
 
-Community is the most fundamental unit of Band Protocol. Band Protocol consists of multiple communities, each of which utilizes its own unique token to for dataset curation. Community token holders participate in community governance and data curation. In return, they receive fee collected from public data consumption and gain token value appreciation.
+Community is the most fundamental unit of Band Protocol. Band Protocol consists of multiple communities, each of which utilizes its own unique token to stake and curate data. Community token holders participate in community governance and data curation. In return, they receive fee collected from public data consumption and gain token value appreciation.
 
 ## Band Native Token
 
@@ -8,7 +8,7 @@ Community is the most fundamental unit of Band Protocol. Band Protocol consists 
 [0x7d534Fe41A7443dCd1b62B6D843A07487f4cc4a4](https://rinkeby.etherscan.io/token/0x7d534Fe41A7443dCd1b62B6D843A07487f4cc4a4)
 :::
 
-The Band Protocol token ([BAND](https://rinkeby.etherscan.io/token/0xD6aE8250b8348C94847280928c79fb3b63cA453e)) is the native token of Band Protocol. It represents the collective ownership across all curation communities inside of the protocol. BAND token is implemented as an [ERC-20](https://eips.ethereum.org/EIPS/eip-20) compatible smart contract, and is used as collateral to mint any community token, using [dynamic bonding curve](/docs/bonding-curve.md) model. During testnet, BAND token is available for free from [BAND faucet](https://faucet.bandprotocol.com).
+The Band Protocol token ([BAND](https://rinkeby.etherscan.io/token/0xD6aE8250b8348C94847280928c79fb3b63cA453e)) is the native token of Band Protocol. It represents the collective stake across all dataset curated on top of of the protocol. BAND token is implemented as an [ERC-20](https://eips.ethereum.org/EIPS/eip-20) compatible smart contract, and is used as collateral to mint any community token, using [dynamic bonding curve](/docs/bonding-curve.md) model. During testnet, BAND token is available for free from [BAND faucet](https://faucet.bandprotocol.com).
 
 ```javascript
 // Transfer 1 BAND to an address owned by VB
@@ -49,7 +49,7 @@ console.log(communityClient.getAddress());
 
 ## Community Token
 
-Each community has its own ERC-20 token to use an incentive inside the community. The token's address can be found at the community contract's `token` member, or by using band.js.
+Each community has its own ERC-20 token to use as an incentive inside the community. The token's address can be found at the community contract's `token` member variable, or by using band.js.
 
 ```javascript
 // Get the community's token address
