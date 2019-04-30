@@ -2,14 +2,16 @@
 
 ## Smart Contracts
 
-Band Protocol is a set of [smart contracts](https://github.com/bandprotocol/contracts) on the Ethereum blockchain that together enable curation community creation. Below is the address of BAND native token contract the Band registry contract on Rinkeby testnet. See [community structure](/docs/community.md) for more details.
+Band Protocol is a set of [smart contracts](https://github.com/bandprotocol/contracts) on the Ethereum blockchain that together enables open standard for data handling and management for any decentralized program or application that requires trusted and reliable data.
+
+Below is the address of BAND native token contract and the Band registry contract on Rinkeby testnet.
 
 |     Contract     |  Type   |                                                            Address                                                            |
 | :--------------: | :-----: | :---------------------------------------------------------------------------------------------------------------------------: |
 | BandRegistry.sol | Factory | [0x798686B18fb1E29b073401e62a5aFB8b145bD5C8](https://rinkeby.etherscan.io/address/0x798686B18fb1E29b073401e62a5aFB8b145bD5C8) |
 |  BandToken.sol   | ERC-20  | [0x7d534Fe41A7443dCd1b62B6D843A07487f4cc4a4](https://rinkeby.etherscan.io/address/0x7d534Fe41A7443dCd1b62B6D843A07487f4cc4a4) |
 
-In addition, Band Protocol has deployed **four** curation communities on Rinkeby testnet, including three contracts that use [token-curated data source](/docs/tcd.md), and one ([CoinHatcher.com](https://coinhatcher.com)) that uses [token-curated registry](/docs/tcr.md). The addresses of smart contracts associated with them are available [here](/docs/data-query.html#on-chain-query-via-smart-contracts).
+In addition, Band Protocol has deployed **four** curated datasets on Rinkeby testnet, including three contracts that use [token-curated data source](/docs/tcd.md), and one ([CoinHatcher.com](https://coinhatcher.com)) that uses [token-curated registry](/docs/tcr.md). The addresses of smart contracts associated with them are available [here](/docs/data-query.html#on-chain-query-via-smart-contracts).
 
 ## Band.js JavaScript Library
 
@@ -22,7 +24,7 @@ $ npm install --save band.js
 $ yarn install band.js
 ```
 
-The library requires [Web3](https://web3js.readthedocs.io/en/1.0/web3.html) provider during its instantiation in order to send transactions to the Ethereum network. On client side wallets, such as [Metamask](https://metamask.io), provider be found at `window.web3.currentProvider`. If you are running on server side, web3 provider can be constructed with connection to an Ethereum node that controls the private key.
+The library requires [Web3](https://web3js.readthedocs.io/en/1.0/web3.html) provider during its instantiation in order to send transactions to the Ethereum network. On client side wallets, such as [Metamask](https://metamask.io), provider be found at `window.web3.currentProvider`. If you are running on a server side, web3 provider can be constructed with connection to an Ethereum node that controls the private key.
 
 ```typescript
 import { BandProtocolClient } from "band.js";

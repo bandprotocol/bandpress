@@ -15,7 +15,10 @@ module.exports = {
     logo: "/assets/logo.svg",
     nav: [
       { text: "Explorer", link: "https://data.bandprotocol.com" },
-      { text: "Curation Portal", link: "https://app.bandprotocol.com" }
+      {
+        text: "Curation Portal",
+        link: "https://app-wip.rinkeby.bandprotocol.com"
+      }
     ]
   }
 };

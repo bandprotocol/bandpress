@@ -31,11 +31,11 @@ contract FooContract {
     DataSource(0x8B3dBb2Db70120Cf4D24c739E1c296DE98644238)
 
   function foo() {
-    // SOME CODE
+    // ...
     uint256 bitcoinPrice =
       dataSource.getAsNumber.value(dataSource.getQueryPrice())("BTC/USD");
     assert (bitcoinPrice == 5579.13e18);  // Price is 5,579.13 USD per Bitcoin
-    // SOME CODE
+    // ...
   }
 }
 ```
@@ -63,13 +63,13 @@ contract FooContract {
     DataSource(0x7d19771a15c1314be9Bd436092A727A70Edc6482)
 
   function foo() {
-    // SOME CODE
+    // ...
     bytes32 sportResult = dataSource
       .getAsBytes32
       .value(dataSource.getQueryPrice())("NBA2019/20190427/LAC-GSW");
     assert (uint8(sportResult[0]) == 110); // The Clippers scored 110
     assert (uint8(sportResult[1]) == 129); // The Warriors scored 129
-    // SOME CODE
+    // ...
   }
 }
 ```
@@ -93,7 +93,7 @@ contract FooContract {
     DataSource(0x6863019Ec1A5f675ce64699020A338Ee2256B981)
 
   function foo() {
-    // SOME CODE
+    // ...
     bytes32 powerballResult =
       dataSource.getAsBytes32.value(dataSource.getQueryPrice())("PWB/20190420");
     assert (uint8(powerballResult[0]) == 3);   // White Ball #1
@@ -103,7 +103,7 @@ contract FooContract {
     assert (uint8(powerballResult[4]) == 65);  // White Ball #5
     assert (uint8(powerballResult[5]) == 1);   // Power Ball #1
     assert (uint8(powerballResult[6]) == 3);   // Power Play Multiplier
-    // SOME CODE
+    // ...
   }
 }
 ```
@@ -114,12 +114,82 @@ In addition to on-chain query using Solidity, Band Protocol's public data can al
 
 ### Price Feed Query
 
-[TODO]
+```bash
+$ curl \
+  -X POST \
+  -H "Content-Type: application/json" \
+  --data '{ "query": "{ allDataPriceFeeds { nodes { pair value } } }" }' \
+  https://graphql.bandprotocol.com/graphql
+
+# {
+#   "data": {
+#     "allDataPriceFeeds": {
+#       "nodes": [
+#         {
+#           "pair": "BTC/USD",
+#           "value": "5174220000000000131072"
+#         },
+#         ...
+#       ]
+#     }
+#   }
+# }
+```
 
 ### Sport Result Query
 
-[TODO]
+```bash
+$ curl \
+  -X POST \
+  -H "Content-Type: application/json" \
+  --data '{ "query": "{ allDataSportFeeds { nodes { sportType sportTime home away scoreHome scoreAway } } }" }' \
+  https://graphql.bandprotocol.com/graphql
+
+# {
+#   "data": {
+#     "allDataSportFeeds": {
+#       "nodes": [
+#         {
+#           "sportType": "MLB",
+#           "sportTime": "20190429",
+#           "home": "BOS",
+#           "away": "OAK",
+#           "scoreHome": 9,
+#           "scoreAway": 4
+#         },
+#         ...
+#       ]
+#     }
+#   }
+# }
+```
 
 ### Lottery Winning Number Query
 
-[TODO]
+```bash
+$ curl \
+  -X POST \
+  -H "Content-Type: application/json" \
+  --data '{ "query": "{ allDataLotteryFeeds { nodes { lotteryType lotteryTime whiteBall1 whiteBall2 whiteBall3 whiteBall4 redBall } } }" }' \
+  https://graphql.bandprotocol.com/graphql
+
+# {
+#   "data": {
+#     "allDataLotteryFeeds": {
+#       "nodes": [
+#         {
+#           "lotteryType": "PWB",
+#           "lotteryTime": "20190427",
+#           "whiteBall1": 2,
+#           "whiteBall2": 29,
+#           "whiteBall3": 41,
+#           "whiteBall4": 45,
+#           "whiteBall5": 62,
+#           "redBall": 6,
+#         },
+#         ...
+#       ]
+#     }
+#   }
+# }
+```
