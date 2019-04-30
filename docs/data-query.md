@@ -9,11 +9,11 @@ Every community on Band Protocol provides its own unique `DataSource` smart cont
 ```typescript
 interface DataSource {
   // Check Query Price (in wei)
-  function getQueryPrice() public view returns (uint256);
+  function getQueryPrice() external view returns (uint256);
   // Data Query
-  function getAsNumber(bytes32 key) public payable returns (uint256);
-  function getAsBytes32(bytes32 key) public payable returns (bytes32);
-  function getAsBool(bytes32 key) public payable returns (bool);
+  function getAsNumber(bytes32 key) external payable returns (uint256);
+  function getAsBytes32(bytes32 key) external payable returns (bytes32);
+  function getAsBool(bytes32 key) external payable returns (bool);
 }
 ```
 
