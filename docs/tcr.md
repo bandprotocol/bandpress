@@ -1,32 +1,32 @@
 # Token Curated Registry
 
-[Token Curated Registry (TCR)](https://medium.com/@ilovebagels/token-curated-registries-1-0-61a232f8dac7) is a method for a community to collective curate a **list** of data. It is suitable for curating a more relatively subjective information in the form of list that requires community-wide opinion.
+[Token Curated Registry (TCR)](https://medium.com/@ilovebagels/token-curated-registries-1-0-61a232f8dac7) is a method for a community to collectively curate a **list** of data directly. It is suitable for curating a more relatively subjective information in the form of list that requires community-wide opinion.
 
 ## Breaking Down TCR
 
 - An applicant **applies** for an entry to be listed on the TCR by staking `min_deposit` community token. The entry becomes `listed` if it is not challenged for `apply_stage_length` duration.
 
-- A community member can **challenge** an entry by staking a matching deposit. The entry then goes to voting period. Using [Commit-Reveal Voting](https://medium.com/gitcoin/commit-reveal-scheme-on-ethereum-25d1d1a25428) token holders vote to approve or reject the challenge.
+- A community member can **challenge** an entry by staking a matching deposit. The entry then goes to a voting period. Using [Commit-Reveal Voting](https://medium.com/gitcoin/commit-reveal-scheme-on-ethereum-25d1d1a25428), token holders vote to approve or reject the challenge.
 
-- If less than `min_participation_pct` of voting power participated, the challenge is considered unconclusive. The stake is returned back to the challenger, and the entry stays on the TCR.
+- If less than `min_participation_pct` of tokens participated, the challenge is considered inconclusive. The stake is returned back to the challenger, and the entry stays on the TCR.
 
-- If enough voting power participate and more than `support_required_pct` vote in favor of the challenge, the entry is removed and the entry's deposit becomes challenge reward. The challenger get `dispensation_percentage` percent, while the voters get the remaining.
+- If enough tokens participate and more than `support_required_pct` vote in favor of the challenge, the entry is removed and the entry's deposit becomes challenger's reward. The challenger receives `dispensation_percentage` percent, while the winning voters get the remaining.
 
-- On the other hand, if the challenge fails, the challenger's stake is confiscated and split among the entry owner and voters that reject the challenge. The entry owner receives `dispensation_percentage` percent, while the voters get the remaining.
+- On the other hand, if the challenge fails, the challenger's stake is confiscated and split among the entry owner and voters that reject the challenge. The entry owner receives `dispensation_percentage` percent, while the winning voters get the remaining.
 
 ## Creating New TCR
 
-A TCR can be created by invoking `createTCD` transaction on the community's primary smart contract, with the initial configuration of TCD parameters. The process can be done either through band.js or by sending the transaction directly to the blockchain.
+A TCR can be created by invoking `createTCR` transaction on the community's primary smart contract, with the initial configuration of TCR parameters. The process can be done either through band.js or by sending the transaction directly to the blockchain.
 
 ### TCR Parameters
 
-All of the TCD parameters live under namespace specifed by `prefix` parameter (e.g. if prefix is `tcr:` then the parameters are `tcr:apply_stage_length`, `tcr:dispensation_percentage`, etc). The paremeters can be changed through the community's governance smart contracts.
+All of the TCR parameters live under namespace specified by `prefix` parameter (e.g. if prefix is `tcr:` then the parameters are `tcr:apply_stage_length`, `tcr:dispensation_percentage`, etc). The parameters can be changed through the community's governance smart contracts.
 
 |         Parameter         |                           Description                           |
 | :-----------------------: | :-------------------------------------------------------------: |
 |   `apply_stage_length`    |      The time pending before an entry is listed in the TCR      |
 |       `min_deposit`       |   Minimum amount of token required for an entry to be listed    |
-| `dispensation_percentage` |      Maximum number of active providers at any given time       |
+| `dispensation_percentage` |     Percentage of reward going to entry owner or challenger     |
 |       `commit_time`       |            Duration in seconds of the commit period             |
 |       `reveal_time`       |            Duration in seconds of the reveal period             |
 |  `min_participation_pct`  | Min percentage of participants required to vote for a challenge |
@@ -101,7 +101,7 @@ await tcrClient
 await tcrClient.createExitTransaction("Qm....").send();
 ```
 
-Other community members can interact with a TCR entry by sending `challenge` transaction, which will open a challenge for the entry. The challenge will then go through commit-reveal period, during which the community members collectively decide if the challenge will succeed.
+Other community members can interact with a TCR entry by sending `challenge` transaction, which will initiate a challenge for the entry. The challenge will then go through commit-reveal period, during which the community members collectively decide if the challenge will succeed.
 
 ```javascript
 // Challenge an existing entry

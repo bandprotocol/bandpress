@@ -4,17 +4,17 @@ Token Curate DataSource (TCD) is a method for a community to collectively curate
 
 ## Breaking Down TCD
 
-TCD is in many ways similar to [Delegated Proof of Stake](https://en.bitcoinwiki.org/wiki/DPoS) consensus. Community members collective elect data providers by staking their token in the name of the candidates. Data providers have the authority to provide data to the public, and earn a portion of fees collected from data query.
+TCD is in many ways similar to [Delegated Proof of Stake](https://en.bitcoinwiki.org/wiki/DPoS) consensus. Tokeh holders collectively elect data providers by staking their token in the name of the candidates. Data providers have the authority to provide data to the public, and earn a portion of the fees collected from data query.
 
 - A community member who wishes to become a data provider deploys **Data Source Contract**. He or she then **registers** to become a provider candidate by staking `min_provider_stake` token.
 
-- Other community members can **vote** for a provider candidate they trust. Top `max_provider_count` data provider candidates by the total number of voting stake become **active data providers**.
+- Other community members can **vote** for a provider candidate they trust. Top `max_provider_count` data provider candidates by the total number of token staked become **active data providers**.
 
-- Whenever there is a data query coming in, TCD contract issues a sub-query to every active provider's data source. Query Results get **aggregated** to become the final result of the data query.
+- Whenever there is a data query coming in, TCD contract issues a sub-query to every active provider's data source. Query results are **aggregated** to become the final result of the data query.
 
-- ÐApps pay `query_price` wei for each query, which gets converted to community token. `owner_revenue_pct` of the revenue goes to the owners of the active providers. The remaining goes to community members propotionally to their stake.
+- ÐApps pay `query_price` wei for each query, which gets converted to community token. `owner_revenue_pct` of the revenue goes to the active providers. The remaining goes to community members propotional to their stake.
 
-- Community members can **withdraw** their stake anytime, and get their stake returned back together with their portion of revenue. After a withdrawal, the active provider list gets recalculated.
+- Community members can **withdraw** their stake anytime, and get their stake back together with their portion of revenue. After a withdrawal, the active provider list gets recalculated.
 
 - Data providers are responsible for maintaining their stake above `min_provider_stake` threshold. If a provider fails to do so, community members may **kick** the providers out of the active list.
 
@@ -22,10 +22,10 @@ TCD is in many ways similar to [Delegated Proof of Stake](https://en.bitcoinwiki
 
 ### Query Result Aggregation
 
-At version 1, Band Protocol provides two different methods for data aggregation. Concrete implementation details can be found in library [ArrayUtils.sol](https://github.com/bandprotocol/contracts/blob/master/contracts/utils/ArrayUtils.sol).
+At version 1, Band Protocol provides two different data aggregation methods for different data types. Concrete implementation details can be found in library [ArrayUtils.sol](https://github.com/bandprotocol/contracts/blob/master/contracts/utils/ArrayUtils.sol).
 
 - **Number**: The final result is the [Median](https://en.wikipedia.org/wiki/Median) value among all the results.
-- **Bytes32**: The final result is the [Majority](https://en.wikipedia.org/wiki/Majority) value among all the results, or failure if there's no majority.
+- **Bytes32**: The final result is the [Majority](https://en.wikipedia.org/wiki/Majority) value among all the results, or failure if there is no majority.
 
 ## Creating New TCD
 
@@ -33,14 +33,14 @@ A TCD can be created by invoking `createTCD` transaction on the community's prim
 
 ### TCD Parameters
 
-All of the TCD parameters live under namespace `data:`. The paremeters can be changed through the community's governance smart contracts.
+All of the TCD parameters live under namespace `data:`. The parameters can be changed through the community's governance smart contracts.
 
-|         Parameter         |                        Description                        |
-| :-----------------------: | :-------------------------------------------------------: |
-| `data:min_provider_stake` |     Minimum amount of token a provider needs to stake     |
-| `data:max_provider_count` |   Maximum number of active providers at any given time    |
-| `data:owner_revenue_pct`  | Percentage of revenue going directly to providers' owners |
-|    `data:query_price`     |       Cost of ÐApps to query one data point in Wei        |
+|         Parameter         |                      Description                       |
+| :-----------------------: | :----------------------------------------------------: |
+| `data:min_provider_stake` |   Minimum amount of token a provider needs to stake    |
+| `data:max_provider_count` |  Maximum number of active providers at any given time  |
+| `data:owner_revenue_pct`  | Percentage of revenue going directly to data providers |
+|    `data:query_price`     |      Cost of ÐApps to query one data point in Wei      |
 
 ```javascript
 const tcdClient = await communityClient.createTCD({
@@ -97,7 +97,7 @@ await tcdClient.createKickDataSourceTransaction("0x...").send();
 
 ### Voting for Data Provider
 
-Community members can vote for a data provider by sending `vote` transaction to the TCD smart contract. The stake token gets added to the stake pool, and the voter receives **ownership share** propotionally.
+Community members can vote for a data provider by sending `vote` transaction to the TCD smart contract. The staked token gets added to the stake pool, and the voter receives **ownership share** proportionately.
 
 ```javascript
 await tcdClient
