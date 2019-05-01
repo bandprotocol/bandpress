@@ -26,16 +26,14 @@ interface DataSource {
 The price feed endpoint allows smart contracts to query for recent cryptocurrency prices aggregated as the median value among multiple reputable data providers. The endpoint currently supports `BTC/USD`, `ETH/USD`, and `LTC/USD` pairs. ÐApps can query for price information using `getAsNumber` function. Note that the returned value is multiplied by `10^18` to preserve decimal precision.
 
 ```typescript
-contract FooContract {
+contract PriceFeedContract {
   DataSource public constant dataSource =
-    DataSource(0x8B3dBb2Db70120Cf4D24c739E1c296DE98644238)
+    DataSource(0x8B3dBb2Db70120Cf4D24c739E1c296DE98644238);
 
-  function foo() {
-    // ...
+  function checkBTCPrice() internal {
     uint256 bitcoinPrice =
       dataSource.getAsNumber.value(dataSource.getQueryPrice())("BTC/USD");
     assert (bitcoinPrice == 5579.13e18);  // Price is 5,579.13 USD per Bitcoin
-    // ...
   }
 }
 ```
@@ -58,18 +56,16 @@ The sport endpoint provides the results of four major sport leagues: [NFL](https
 The result contains 2 bytes. The first byte is the home team's total score, and the second byte is the away team's total score.
 
 ```typescript
-contract FooContract {
+contract SportResultContract {
   DataSource public constant dataSource =
-    DataSource(0x7d19771a15c1314be9Bd436092A727A70Edc6482)
+    DataSource(0x7d19771a15c1314be9Bd436092A727A70Edc6482);
 
-  function foo() {
-    // ...
+  function checkNBAResult() internal {
     bytes32 sportResult = dataSource
       .getAsBytes32
       .value(dataSource.getQueryPrice())("NBA2019/20190427/LAC-GSW");
     assert (uint8(sportResult[0]) == 110); // The Clippers scored 110
     assert (uint8(sportResult[1]) == 129); // The Warriors scored 129
-    // ...
   }
 }
 ```
@@ -88,14 +84,14 @@ The lottery endpoint continuously feeds the results of the top two US lotteries:
 The result contains 7 bytes. Each of the first 5 bytes represents each of the 5 white balls; the 6th byte represents the {Power|Gold} ball; and the 7th byte represents the winning multiplier.
 
 ```typescript
-contract FooContract {
+contract LottoResultContract {
   DataSource public constant dataSource =
-    DataSource(0x6863019Ec1A5f675ce64699020A338Ee2256B981)
+    DataSource(0x6863019Ec1A5f675ce64699020A338Ee2256B981);
 
-  function foo() {
-    // ...
-    bytes32 powerballResult =
-      dataSource.getAsBytes32.value(dataSource.getQueryPrice())("PWB/20190420");
+  function checkLottoResult() internal {
+    bytes32 powerballResult = dataSource
+      .getAsBytes32
+      .value(dataSource.getQueryPrice())("PWB/20190420");
     assert (uint8(powerballResult[0]) == 3);   // White Ball #1
     assert (uint8(powerballResult[1]) == 27);  // White Ball #2
     assert (uint8(powerballResult[2]) == 30);  // White Ball #3
@@ -103,7 +99,6 @@ contract FooContract {
     assert (uint8(powerballResult[4]) == 65);  // White Ball #5
     assert (uint8(powerballResult[5]) == 1);   // Power Ball #1
     assert (uint8(powerballResult[6]) == 3);   // Power Play Multiplier
-    // ...
   }
 }
 ```
