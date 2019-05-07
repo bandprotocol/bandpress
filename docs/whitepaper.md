@@ -75,7 +75,7 @@ Band Protocol is built around its own native token, Band token (BAND). BAND is i
 
 - **Store the value of all datasets.** To mint any dataset token, Band token is required as collateral. Thus, as the demand of dataset tokens increase, BAND's demand will increase as well. This has a two-fold effect. Firstly, BAND's price and token value will increase, making it effectly reflect the value across all curation groups. Secondly, as dataset tokens are valued in terms of BAND, an increase in BAND's price results in more security for all curation groups.
 
-- **Governance for future protocol upgrades.** Similar to projects like [0x](https://0x.org/)'s ZRX token, BAND can be used to propose and vote on future protocol improvements. Once BAND protocol is deployed, its internal logic cannot be changed easily, since upgrade can affect security and usability of the system. BAND Token will act as a governance token for stakeholders in every curation group to vote for future decentralized upgrade and governance issues, such as changing voting schemes or adding new curation methods.
+- **Governance for future protocol upgrades.** Similar to projects like [0x](https://0x.org/)'s ZRX token, BAND can be used for proposing and voting on future protocol improvements. Once BAND protocol is deployed, its internal logic cannot be changed easily, since upgrade can affect security and usability of the system. BAND Token will act as a governance token for stakeholders in every curation group to vote for future decentralized upgrade and governance issues, such as changing voting schemes or adding new curation methods.
 
 - **Control dataset quality through curated dataset registry.** Initially the first set of datasets will be strictly handpicked. However, as Band Protocol moves toward decentralization, creating and curating a dataset will be permissionless. To control the quality of datasets inside the ecosystem, BAND token holders will together maintain a curated registry of ligitimate datasets based on a set criteria. Band token will be used as the voting power to protect the registry against bad actors.
 
@@ -97,25 +97,60 @@ It is important to note that some curation methods, such as [token-curated regis
 
 ## Dataset Curation Groups
 
-_Dataset Curation Group_ is the most fundamental unit of Band Protocol. Band Protocol consists of multiple groups, each of which utilizes its own unique token to stake and curate data. Dataset token holders participate in community governance and data curation. In return, they receive fee collected from public data consumption and gain token value appreciation.
+Dataset Curation Group is the most fundamental unit of Band Protocol. Band Protocol consists of multiple groups, each of which has its own unique token. Dataset token holders participate in community governance and data curation. In return, they receive fee collected from public data consumption and gain token value appreciation.
 
 ### Dataset Token
 
-TODO
+Dataset token is an [ERC-20](https://eips.ethereum.org/EIPS/eip-20) token that is deployed with a curation group when it is created. The token supply is controlled by [bonding curve contract](#bonded-token-issuance), which has the sole authority to mint and burn dataset tokens. Dataset token is used for curating data through [token-incentivized data curation methods](#token-incentivized-data-curation). Band Protocol adds three extra functionalities to the ERC-20 contract to improve user experience.
+
+1. **[ERC-223](https://github.com/Dexaran/ERC223-token-standard)'s Transfer-and-Call** allows the token to be received and processed by a contract within a single transaction.
+
+2. **[Minimi](https://github.com/Giveth/minime)'s Balance Snapshot** allows a contract to query for historical balance of any account. This is primarily useful for determining voting power and eliminate double voting.
+
+3. **Transfer Freeze**, which allows authorized contracts to disable token transfer. This is primarily useful for implementing [Delegated Dataset Curation](#delegated-dataset-curation)'s stake mechanism while still allowing stakers to keep their token custody.
+
+[IMAGE 9]
 
 ### Bonded Token Issuance
 
-Dataset token issuance is controlled by the curation group's bonding curve.
+Dataset token issuance is controlled by the curation group's bonding curve bonded with Band token. Bonding curve concept is [originally proposed](https://medium.com/@simondlr/tokens-2-0-curved-token-bonding-in-curation-markets-1764a2e0bee5) by [Simon de la Rouviere](https://twitter.com/simondlr). Bonding curve ensures that (1) dataset token's price always goes up as the supply increases, and (2) token holders always have an option to "exit" by selling their dataset tokens to receive back proportional BAND back.
 
-|           Parameter           |    Type    | Description |
-| :---------------------------: | :--------: | :---------: |
-|  `bonding:liquidity_spread`   | Percentage |
-|   `bonding:inflation_rate`    | Percentage |
-| `bonding:revenue_beneficiary` |  Address   |
+#### Value-Supply Function
+
+This [convex function](https://en.wikipedia.org/wiki/Convex_function) describes the relationship between the dataset token's total supply and its total value in terms of collateralized Band tokens. In other words, given the current supply `s`, `V(s)` produces the total number BAND collateralized in the bonding curve contract. Notice that by defining this value-supply function, one can easily derive the spot price of dataset token at a given total supply `P(s)` as the derivative of the value-supply equation at that specific supply value.
+
+[IMAGE 7]
+
+Whenever a person buys dataset tokens, she sends BAND tokens to the bonding curve contract. The contract calculatest the adjusted dataset token's supply and mints the added supply to the buyer. Opposite conversion happens when a person decides to sell dataset tokens.
+
+[IMAGE 8]
+
+#### Equation Library
+
+Band Protocol provides [a generic smart contract](https://medium.com/bandprotocol/encoding-and-evaluating-mathematical-expression-in-solidity-f1bb062fa86e) library to construct arbitrary mathematical expressions in Solidity (also see [video explanation](https://www.youtube.com/watch?v=1rBSn6aC2mQ) for more details). Any expression
+that can be described in terms of recursive applications of common unary and binary expressions on the current supply and numeric constants can be encoded.
+
+#### Liquidity Spread
+
+Liquidity spread controls the difference between buying and selling prices of dataset token. The parameter can be set via [Governance Parameters](#governance-parameters) under name `bonding:liquidity_spread`. High liquidity spread makes it more difficult for malicious actors to perform [Front-running Attacks](https://en.wikipedia.org/wiki/Front_running). However, high spread also leads to community members receive less BAND when they cash out their community token. Revenue from liquidity spread is sent to address specified by parameter `bonding:revenue_beneficiary`. The default value is the curation group's creator address.
+
+[IMAGE 6]
 
 ### Governance Parameters
 
-Governance parameters inside of a curation group dictate how other smart contracts in the group perform logic. For instance, parameter `bonding:liquidify_spread`
+Governance parameters inside of a curation group dictate how other smart contracts of the group perform their logics. Formally, gonvernance parameters contain of a set of 32-byte key and 32-byte value pair. A 32-byte value can be interpreted as an interger, a percentage value, an blockchain address, or an IPFS hash dependeing on its key. For instance, parameter `bonding:liquidity_spread` maps to an integer that controls the spread percentage between the bonding curve buy and sell spot prices. Dataset token holders can conduct changes in parameters through the following process.
+
+[IMAGE 5]
+
+1. A dataset token holders **proposes** a change to one or more parameters by sending a "propose" transasction to the governance contract, thereby creating a **proposal**. Once created, a proposal stays open for `params:expiration_time` seconds.
+
+2. While the proposal is open, token holders can **vote** for approval or rejection to the proposal.
+
+3. After the voting period ends, if (1) more than `params:min_particiation_pct` percentage of ALL tokens participated in the vote AND (2) more than `params:support_required_pct` percentage of participating tokens voted for approval, the proposal is approved and the change is applied.
+
+4. Additionally, to facilitate unanimous parameter changes, a proposal can be resolved prior to its expiration if more than `params:support_required_pct` of ALL tokens approve the proposal.
+
+Initial parameters of the bonding curve and governance contracts will be set during the curation group's creation. It is important to note that the three parameters of the governance contract itself can also be changed with via same proposing-voting process.
 
 ## Token-Incentivized Data Curation
 

@@ -8,5 +8,6 @@
   },
   "dependencies": {
     "vuepress": "^0.14.11"
-  }
+  },
+  "devDependencies": {}
 }
