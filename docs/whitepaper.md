@@ -107,9 +107,7 @@ Dataset token is an [ERC-20](https://eips.ethereum.org/EIPS/eip-20) token that i
 
 2. **[Minimi](https://github.com/Giveth/minime)'s Balance Snapshot** allows a contract to query for historical balance of any account. This is primarily useful for determining voting power and eliminate double voting.
 
-3. **Transfer Freeze**, which allows authorized contracts to disable token transfer. This is primarily useful for implementing [Delegated Dataset Curation](#delegated-dataset-curation)'s stake mechanism while still allowing stakers to keep their token custody.
-
-[IMAGE 9]
+3. **Transfer Freeze** allows authorized contracts to disable token transfer. This is primarily useful for implementing [Delegated Dataset Curation](#delegated-dataset-curation)'s stake mechanism while still allowing stakers to keep their token custody.
 
 ### Bonded Token Issuance
 
@@ -117,30 +115,30 @@ Dataset token issuance is controlled by the curation group's bonding curve bonde
 
 #### Value-Supply Function
 
-This [convex function](https://en.wikipedia.org/wiki/Convex_function) describes the relationship between the dataset token's total supply and its total value in terms of collateralized Band tokens. In other words, given the current supply `s`, `V(s)` produces the total number BAND collateralized in the bonding curve contract. Notice that by defining this value-supply function, one can easily derive the spot price of dataset token at a given total supply `P(s)` as the derivative of the value-supply equation at that specific supply value.
+This [convex function](https://en.wikipedia.org/wiki/Convex_function) describes the relationship between the dataset token's total supply and its total value in terms of collateralized Band tokens. In other words, given the current supply `s`, `V(s)` produces the total number of BAND collateralized in the bonding curve contract. Notice that by defining this value-supply function, one can easily derive the spot price of dataset token at a given total supply `P(s)` as the derivative of the value-supply equation at that specific supply value.
 
-[IMAGE 7]
+[IMAGE 5]
 
 Whenever a person buys dataset tokens, she sends BAND tokens to the bonding curve contract. The contract calculatest the adjusted dataset token's supply and mints the added supply to the buyer. Opposite conversion happens when a person decides to sell dataset tokens.
 
-[IMAGE 8]
+[IMAGE 6]
 
 #### Equation Library
 
 Band Protocol provides [a generic smart contract](https://medium.com/bandprotocol/encoding-and-evaluating-mathematical-expression-in-solidity-f1bb062fa86e) library to construct arbitrary mathematical expressions in Solidity (also see [video explanation](https://www.youtube.com/watch?v=1rBSn6aC2mQ) for more details). Any expression
-that can be described in terms of recursive applications of common unary and binary expressions on the current supply and numeric constants can be encoded.
+that can be described in terms of recursive applications of common unary, binary, and ternary operations on the current supply and numeric constants can be encoded.
 
 #### Liquidity Spread
 
-Liquidity spread controls the difference between buying and selling prices of dataset token. The parameter can be set via [Governance Parameters](#governance-parameters) under name `bonding:liquidity_spread`. High liquidity spread makes it more difficult for malicious actors to perform [Front-running Attacks](https://en.wikipedia.org/wiki/Front_running). However, high spread also leads to community members receive less BAND when they cash out their community token. Revenue from liquidity spread is sent to address specified by parameter `bonding:revenue_beneficiary`. The default value is the curation group's creator address.
+Liquidity spread controls the difference between buying and selling prices of dataset token. The parameter can be set via [governance parameters](#governance-parameters) under name `bonding:liquidity_spread`. High liquidity spread makes it more difficult for malicious actors to perform [front-running attacks](https://en.wikipedia.org/wiki/Front_running). However, high spread also leads to community members receive less BAND when they cash out their community token. Revenue from liquidity spread is sent to address specified by `bonding:revenue_beneficiary` parameter. The default value is the curation group's creator address.
 
-[IMAGE 6]
+[IMAGE 7]
 
 ### Governance Parameters
 
 Governance parameters inside of a curation group dictate how other smart contracts of the group perform their logics. Formally, gonvernance parameters contain of a set of 32-byte key and 32-byte value pair. A 32-byte value can be interpreted as an interger, a percentage value, an blockchain address, or an IPFS hash dependeing on its key. For instance, parameter `bonding:liquidity_spread` maps to an integer that controls the spread percentage between the bonding curve buy and sell spot prices. Dataset token holders can conduct changes in parameters through the following process.
 
-[IMAGE 5]
+[IMAGE 8]
 
 1. A dataset token holders **proposes** a change to one or more parameters by sending a "propose" transasction to the governance contract, thereby creating a **proposal**. Once created, a proposal stays open for `params:expiration_time` seconds.
 
@@ -154,7 +152,7 @@ Initial parameters of the bonding curve and governance contracts will be set dur
 
 ## Token-Incentivized Data Curation
 
-During the fist mainnet launch, Band Protocol will provide two primary schemes for a curation group to collectively curate data. We are actively researching for more curation models, and will add them in the protocol in future protocol upgrades.
+During the fist mainnet launch, Band Protocol will provide two primary models for a curation group to utilize the dataset token to collectively curate data. We are actively researching for more curation models, and will add them to the protocol in future protocol upgrades.
 
 ### Token-Curated Registry
 
@@ -168,30 +166,52 @@ Once up and running, curated registry
 
 TODO
 
-## Concerns and Limitations
+## Potential Issues and Limitations
 
-TODO
+### Parasitic Data Sources
 
-### Scalability and Gas Cost
+A parasitic smart contract consumes data from a dataset and redistributes it to other Ðapps at a lower cost. In essense, it acts as a [caching layer](<https://en.wikipedia.org/wiki/Cache_(computing)>) to the original truth, resulting in a loss of revenue to the original curated dataset. While traditional companies can prevent data reselling businesses using law enforcement, an autonomous curation group's smart contracts do not have such privilege.
 
-TODO
+[IMAGE 11]
+
+Unfortunately, Band Protocol as an open protocol cannot prevent this party's existence. However, Ðapps that choose to rely on parasitic smart contracts risk receiving out-to-date or malicious data. As the Ðapps get bigger, since their trust and reputation are put at stake, they should converge to consume data from official data sources.
+
+<!-- ### Scalability and Gas Cost
+
+The current protocol design requires data providers to constantly feed data to the blockchain. . See [curating huge datasets](#curating-huge-datasets) section below for more details. -->
+
+<!-- Long-term wise, Band Protocol has scalability mitigation plans  in case the scalability issue arises. Note that we choose not to include them in the first iteration to not overcomplicate the protocol. -->
 
 ### On-Chain Voting
 
-TODO
+The viability of token-based on-chain voting is not completely proven, particularly with respect to potential bribery. This topic has been in active research by several teams. However, as of current, token-based voting is the mechanic that is most widely adopted and is the best way to combat against [Sybil attack](https://en.wikipedia.org/wiki/Sybil_attack). Band Protocol implements the following extra layers to disincentivize attacks.
 
-## Furture Technical Goals
+- While dataset token is free to be bought or sold via the automated market maker. The bonding curve contract imposes small liquidity spread between buy and sell prices. This makes buying tokens solely to influence a specific voting costly.
 
-TODO
+- Every voting-based decision inside of Band Protocol can be re-considered. A TCR challenge can be initiated again should the former challenge ends with an unfavorable result. Governance proposals, similarly, can be re-proposed.
+
+That being mentioned, Band Protocol is actively researching on this topic, and voting mechanic can be upgraded should better techniques and competing implementations arise.
+
+## Future Technical Goals
 
 ### Curating Huge Datasets
 
+For Band Protocol to become the go-to place for data query, similar to traditional web's [Wikipedia](https://wikipedia.org) or [Wikidata](https://www.wikidata.org/), it must be able to support large datasets. With the current design, data providers must submit every single data to the blockchain, which is not feasible due to prohibitive costs. Next iteration of Band Protocol will allow data providers to submit only the [Merkle root](https://en.wikipedia.org/wiki/Merkle_tree) of the complete dataset. Raw data will be distributed through an off-chain network, where token holders will collectively verify data. On-chain smart contracts can check for data validity through the same query interface.
+
+[IMAGE 12]
+
 ### Interchain Communication
 
-TODO
+A dataset curation group that aims to curate the hash-chains of other blockchains will be available. Combining with Merkle-hash compression mentioned above, Ethereum smart contracts will be able to inspect on what happens other blockchains, such as Bitcoin or EOS.
+
+[IMAGE 13]
+
+We envision Band Protocol as a blockchain-agnostic protocol, with Band token available on every supported blockchains. To enable that, Band token will support cross-chain [atomic swaps](https://en.bitcoin.it/wiki/Atomic_swap) between blockchains, similar to [BancorX](https://blog.bancor.network/announcing-bancorx-the-first-cross-blockchain-decentralized-liquidity-network-aebb6a0dad8d), albeit with decentralized data oracle powered by Band Protocol itself. With this enabled, we can effectively interconnect different blockchains an empower a wider range of decentralized applications.
 
 ### On-chain Data Privacy
 
-TODO
+Some data is not feasible to be stored and published as a plain text. Personal information such as name, age, or credit scores are private. However, such information is crucial to unlock the potential of decentralized applications. For instance, non-collateral loan applications require personal information to make a sound lending decision. In future iterations of Band Protocol, we plan to incorporate cutting edge cryptographic techniques, including but not limited to [trusted execution environment (TEE)](https://en.wikipedia.org/wiki/Trusted_execution_environment) and [zero-knowledge proof](https://en.wikipedia.org/wiki/Zero-knowledge_proof) to allow trustless information assertion without compromising user privacy.
 
-<!-- talk about extend -->
+## Conclusion
+
+TODO
