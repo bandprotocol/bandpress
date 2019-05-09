@@ -26,7 +26,7 @@ Band Protocol's main functionality is to bridge the gap between decentralized ap
 
 Existing data provider networks, such as [ChainLink](https://chain.link/) or [Oraclize](http://www.oraclize.it/), require [asynchronous](<https://en.wikipedia.org/wiki/Asynchrony_(computer_programming)>) interactions between smart contracts and data layers. Not only does this method complicates smart contract implementations, it also introduce a significant delay as two blockchain transactions need to be executed and confirmed sequentially. To obtain data, a smart contract follows the following flow.
 
-[INSERT IMAGE 1]
+![](/assets/two-tx-model.png)
 
 1. Contract saves the state of the current transaction to the contract's storage.
 2. Contract emits an event to request for data query and stops the current transaction.
@@ -36,9 +36,11 @@ Existing data provider networks, such as [ChainLink](https://chain.link/) or [Or
 
 <!-- A smart contract needs to emit a data request event and save the transaction's state. Offchain layers listens to the event and submit another transaction to resume the logic. While -->
 
-**Band Protocol shifts the paradigm and instead provides an intuitive query interface for decentralized applications to receive real-world data as a simple function call to a static smart contract.** Data providers are responsible for in putting and curating data to the blockchain, making it ready to be consumed from Ðapps synchronously. As a result, querying data on Band Protocol is simple to implement and only incurs small gas cost overhead.
+**Band Protocol shifts the paradigm and instead provides an intuitive query interface for decentralized applications to receive real-world data as a simple function call to a static smart contract.** Data providers are responsible for in putting and curating data to the blockchain, making it ready to be consumed from Ðapps synchronously.
 
-[INSERT IMAGE 2]
+![](/assets/one-tx-model.png)
+
+As a result, querying data on Band Protocol is simple to implement and only incurs small gas cost overhead.
 
 <!-- ```typescript
 interface DataSource {
@@ -83,11 +85,11 @@ Band Protocol is built around its own native token, Band token (BAND). BAND is i
 
 A protocol cannot survive without proper econimic incentives. Band Protocol relies on query fees to cover the cost of data providers and incentivize honest data curation. **Whenever a smart contract issues a data query function call, it must attach a fee in terms of the blockchain's native currency (ETH in the case of Ethereum) with the call.** Query fees get split among the dataset's token holders appropriately based on a fee schedule set by the curation group's [governance parameters](#governance-parameters).
 
-[IMAGE 3]
+![](/assets/ask-query-price.png)
 
 The decision to accept the blockchain native currency is primarily to simplify onboarding and integration process, since it is unreasonable to assume that every Ðapp is willing to hold dataset tokens or Band token. Under the hood, Band Protocol uses [Uniswap Exchange Protocol](https://uniswap.io/) to instantly convert accepted currency to Band token, which then gets converted to dataset token through [bonding curve](#bonded-token-issuance) on the same transaction. Thus, although Ðapps pay in native currency, token holders still receive their revenue share in dataset token. Through the process, more BAND gets locked to bonding curve and the supply of dataset token increases, resulting in price increases for both tokens.
 
-[IMAGE 4]
+![](/assets/uniswap-conversion.png)
 
 It is important to note that some curation methods, such as [token-curated registry](#token-curated-registry), do not necessarily need revenue to economically benefit the participants. In that case, the dataset community may collectively decide to set query fee to zero.
 
@@ -152,19 +154,81 @@ Initial parameters of the bonding curve and governance contracts will be set dur
 
 ## Token-Incentivized Data Curation
 
-During the fist mainnet launch, Band Protocol will provide two primary models for a curation group to utilize the dataset token to collectively curate data. We are actively researching for more curation models, and will add them to the protocol in future protocol upgrades.
+During the first mainnet launch, Band Protocol will provide two primary models for a curation group to utilize its dataset token to collectively curate data. We are actively researching for more curation models, and will add them to the protocol in future protocol upgrades. A curation group is not necessarily restricted to use only use exactly one curation method; the same dataset token can be used across multiple datasets within the same curation group.
+
+This section primarily discusses the technical token mechanics. More concrete examples will be explained in [potential use cases](#potential-use-cases) section.
 
 ### Token-Curated Registry
 
-One way that token holders can collectively build a public dataset is with [Token Curated Registry (TCR)](https://medium.com/@ilovebagels/token-curated-registries-1-0-61a232f8dac7). With TCR model, external applicants apply for an entry to get listed on the registry. Token holders validate the
+Token holders can collectively build a public dataset with [Token-Curated Registry (TCR)](https://medium.com/@ilovebagels/token-curated-registries-1-0-61a232f8dac7). A TCR is an on-chain list data structure of 32-byte entries, including strings, addresses, numbers, or hashes. Three parties are involved in building a TCR, **application candidates, token holders, and data consumers**.
+
+- **Application candidates** stake their dataset tokens to get their entries included in the system. The risk losing tokens if their entries are not aligned with the TCR's guideline.
+
+- **Token holders** monitor the quality of entries on the TCR. They challenge low quality entries, and vote for ongoing challenges. They receive token rewards for performing the curation tasks.
+
+- **Data consumers** read and utilize information about the entries on the TCR. While the consumers do not pay, they provide intrinsic value to the owners of the TCR's entries.
+
+#### How does TCR Curation Work?
+
+[IMAGE]
+
+1. A candidate **applies** for an entry to be listed on the TCR by staking `min_deposit` dataset token. The entry gets automatically listed if it is not challenged for `apply_stage_length` duration.
+
+2. A token holder can **challenge** an entry by staking a matching deposit. The entry goes to a voting period. Using [commit-reveal voting](https://en.wikipedia.org/wiki/Commitment_scheme), token holders **vote** to keep or remove the entry.
+
+3. If less than `min_participation_pct` of tokens participated, the challenge is considered inconclusive. The matching deposit is returned to the challenger, and the entry stays on the TCR.
+
+4. If enough tokens participated and more than `support_required_pct` vote for entry removal, the entry is removed and the entry's deposit becomes challenger's reward. The challenger receives `dispensation_percentage` percent, while the winning voters get the remaining.
+
+5. On the other hand, if the challenge fails, the challenger's stake is confiscated and split among the entry owner and voters that vote to keep the entry. The entry owner receives `dispensation_percentage` percent, while the winning voters get the remaining.
+
+::: tip Depreciative Stake Model
+Band Protocol is actively experimenting with [Depreciative Stake Model](https://medium.com/bandprotocol/token-curated-registry-with-depreciative-stake-model-fc8fe67c8fd7) in entry deposit.
+:::
+
+TCR parameters are configurable via the curation group's [governance parameters](#governance-parameters).
 
 #### Connect with Query Interface
 
-Once up and running, curated registry
+A TCR can power the curation group's query interface with two possible interfaces.
+
+- `bool getData(bytes32)` checks for an entry's existence in the TCR.
+- `bytes32 getData(uint256)` gets the `n`^th entry currently residing in the TCR.
+
+[IMAGE]
 
 ### Delegated Dataset Curation
 
-TODO
+While TCR is suitable for low volume data that requires attention from the whole community, Token-Curated DataSouce (TCD) is a method to objective data with higher volume. TCD is in many ways similar to [Delegated Proof of Stake](https://en.bitcoinwiki.org/wiki/DPoS) consensus. **Token holders** collectively elect data providers by staking their token in the name of the candidates. **Data providers** have the authority to provide data to the public, and earn a portion of the fees collected from data queries.
+
+- **Data providers** apply for the authority to provide data to the dataset. Top providers by total stake get to provide data. They receive the majority of query fees in exchange for their services.
+
+- **Token holders** stake their tokens for data providers that they trust. They earn a smaller portion of query fees every in exchange for help securing the list of top trusted data providers.
+
+#### How does TCD Curation Work?
+
+[IMAGE]
+
+- A token holder who wishes to become a data provider deploys **Data Source Contract**. He or she then **registers** to become a provider candidate by staking `min_provider_stake` token.
+
+- Other token holders can **stake** for a provider candidate they trust. Top `max_provider_count` data provider candidates by the total number of token staked become **active data providers**.
+
+- Whenever there is a data query coming in, TCD contract issues a sub-query to every active provider's data source. Query results are **aggregated** to become the final result of the data query.
+
+- Ðapps pay `query_price` ETH for each query, which gets converted to community token. `owner_revenue_pct` of the revenue goes to the active providers. The remaining goes to community members propotional to their stake.
+
+- Token holders can **withdraw** their stake anytime, and get their stake back together with their portion of revenue. After a withdrawal, the active provider list gets recalculated.
+
+- Data providers can also **withdraw** their stake. However, they must notify TCD smart contract about their intention to withdraw for `withdraw_delay` duration. This allows ordinary token holders their stakes prior to data providers.
+
+#### Connect with Query Interface
+
+External data consumers query for data using the query interface, which aggregates data points among currently active data providers. Band Protocol will initially provide two aggregation methods.
+
+- **Number**: The final result is the [Median](https://en.wikipedia.org/wiki/Median) value among all the results.
+- **Bytes32**: The final result is the [Majority](https://en.wikipedia.org/wiki/Majority) value among all the results, or failure if there is no majority.
+
+[IMAGE]
 
 ## Potential Issues and Limitations
 
@@ -191,6 +255,10 @@ The viability of token-based on-chain voting is not completely proven, particula
 - Every voting-based decision inside of Band Protocol can be re-considered. A TCR challenge can be initiated again should the former challenge ends with an unfavorable result. Governance proposals, similarly, can be re-proposed.
 
 That being mentioned, Band Protocol is actively researching on this topic, and voting mechanic can be upgraded should better techniques and competing implementations arise.
+
+## Potential Use Cases
+
+TODO
 
 ## Future Technical Goals
 
