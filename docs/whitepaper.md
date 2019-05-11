@@ -119,11 +119,11 @@ Dataset token issuance is controlled by the curation group's bonding curve bonde
 
 This [convex function](https://en.wikipedia.org/wiki/Convex_function) describes the relationship between the dataset token's total supply and its total value in terms of collateralized Band tokens. In other words, given the current supply `s`, `V(s)` produces the total number of BAND collateralized in the bonding curve contract. Notice that by defining this value-supply function, one can easily derive the spot price of dataset token at a given total supply `P(s)` as the derivative of the value-supply equation at that specific supply value.
 
-[IMAGE 5]
+![](/assets/bonding.png)
 
 Whenever a person buys dataset tokens, she sends BAND tokens to the bonding curve contract. The contract calculatest the adjusted dataset token's supply and mints the added supply to the buyer. Opposite conversion happens when a person decides to sell dataset tokens.
 
-[IMAGE 6]
+![](/assets/buysell.png)
 
 To combat against front-running, the bonding curve contract allows users to specify **price limit**, simulating traditional [limit orders](https://www.sec.gov/fast-answers/answerslimithtm.html). A transaction will get reverted should it violates the limit condition, saving the user from executing a bad order.
 
@@ -140,7 +140,7 @@ Liquidity spread controls the difference between buying and selling prices of da
 
 Governance parameters inside of a curation group dictate how other smart contracts of the group perform their logics. Formally, gonvernance parameters contain of a set of 32-byte key and 32-byte value pair. A 32-byte value can be interpreted as an interger, a percentage value, an blockchain address, or an IPFS hash dependeing on its key. For instance, parameter `bonding:liquidity_spread` maps to an integer that controls the spread percentage between the bonding curve buy and sell spot prices. Dataset token holders can conduct changes in parameters through the following process.
 
-[IMAGE 8]
+![](/assets/parameters.png)
 
 1. A dataset token holders **proposes** a change to one or more parameters by sending a "propose" transasction to the governance contract, thereby creating a **proposal**. Once created, a proposal stays open for `params:expiration_time` seconds.
 
@@ -293,7 +293,3 @@ We envision Band Protocol as a blockchain-agnostic protocol, with Band token ava
 ### On-chain Data Privacy
 
 Some data is not feasible to be stored and published as a plain text. Personal information such as name, age, or credit scores are private. However, such information is crucial to unlock the potential of decentralized applications. For instance, non-collateral loan applications require personal information to make a sound lending decision. In future iterations of Band Protocol, we plan to incorporate cutting edge cryptographic techniques, including but not limited to [trusted execution environment (TEE)](https://en.wikipedia.org/wiki/Trusted_execution_environment) and [zero-knowledge proof](https://en.wikipedia.org/wiki/Zero-knowledge_proof) to allow trustless information assertion without compromising user privacy.
-
-## Conclusion
-
-TODO
