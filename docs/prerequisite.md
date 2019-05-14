@@ -2,7 +2,7 @@
 
 ## Smart Contracts
 
-Band Protocol is a set of [smart contracts](https://github.com/bandprotocol/contracts) on the Ethereum blockchain that together enables open standard for data handling and management for any decentralized program or application that requires trusted and reliable data.
+Band Protocol is a set of [smart contracts](https://github.com/bandprotocol/contracts) on the Ethereum blockchain that together provides an open standard for handling and management of data for any decentralized program or application that requires trusted and reliable data.
 
 Below is the address of BAND native token contract and the Band registry contract on Rinkeby testnet.
 

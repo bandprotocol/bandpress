@@ -2,13 +2,13 @@
 
 ![](/assets/overview-usecase.png)
 
-[Band Protocol](https://bandprotocol.com) is a protocol for decentralized data governance on the Ethereum blockchain. Using various token economics, the protocol incentivizes multiple independent parties to work cooperatively to provide trusted data. Curated information is available on-chain, ready to be consumed by other blockchain protocols or decentralized applications. **Band Protocol serves as the data layer of the [Web3](https://github.com/w3f/Web3-wiki/wiki) ecosystem, bridging real world and/or subjective information to the smart contract world.**
+[Band Protocol](https://bandprotocol.com) is a protocol for decentralized data governance on the Ethereum blockchain. The protocol incentivizes multiple independent parties to work cooperatively to provide trusted data. Curated information is available on-chain, ready to be consumed by other blockchain protocols or decentralized applications. **Band Protocol serves as the data layer of the [Web3](https://github.com/w3f/Web3-wiki/wiki) ecosystem, bridging real world and/or subjective information to smart contracts.**
 
 ## Breaking Down Band Protocol
 
 <!-- [TODO: NEED IMAGE FOR EACH OF THE BULLET POINTS] -->
 
-- Band Protocol allows independent group of people or entities that share interest in curating a specific set of information to form up as a [Community](/docs/community.md).
+- Band Protocol allows an independent group of people or entities that share interest in curating a specific set of information to form up as a [Community](/docs/community.md).
 
 - Each community is built around its own cryptographic token, which represents ownership stake in the community and has its supply controlled by a [Continuous Bonding Curve](/docs/bonding-curve.md).
 
@@ -18,7 +18,7 @@
 
 - Curated data can be consumed by the general public via a generic [Query Interface](/docs/data-query.md). ÐApps that consume the data on-chain pay a small fee to the community.
 
-- As more applications and end users consume data, the demand of the community's token increases, leading to the appreciation in token value for existing data providers.
+- As more applications and end users consume data, the demand for the community token increases, providing incentive for existing data providers.
 
 ![](/assets/overview-band.png)
 

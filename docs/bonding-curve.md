@@ -6,11 +6,11 @@ Band Protocol utilizes the concept of [Continuous Bonding Curve](https://medium.
 
 - During community creation, the creator specifies the bonding curve of the community. This bonding curve stays with the community throughout its lifetime.
 
-- Whenever someone wants to buy community token, he or she sends BAND token as collateral to the bonding curve contract. The contract mints and sends back new community token so that the new token supply is consistent with the bonding curve.
+- Whenever someone wants to buy community tokens, he or she sends BAND token as collateral to the bonding curve contract. The contract mints and sends back new community tokens so that the new token supply is consistent with the bonding curve.
 
-- As the supply of the community token grows, the token becomes more expensive. This is due to that fact that bonding curve is designed to be [Convex Function](https://en.wikipedia.org/wiki/Convex_function).
+- As the supply of the community token grows, the token becomes more expensive. This is due to that fact that bonding curve is designed follow a [Convex Function](https://en.wikipedia.org/wiki/Convex_function).
 
-- On the other hand, anyone can sell buy sending community token back to the contract. The contract burns the token and returns back BAND so that the collateral BAND is consistent with the new supply.
+- On the other hand, anyone can sell by sending communitys token back to the contract. The contract burns the token and returns back BAND so that the collateral BAND is consistent with the new supply.
 
 ## Bonding Curve Representation
 
@@ -45,9 +45,9 @@ const collateralEquation = [
 ];
 ```
 
-## Buy and Sell Community Token
+## Buy and Sell Community Tokens
 
-Community token can be bought or sold using band.js, or by sending `buy` or `sell` transaction to the bonding curve contract. Note that when buying or selling, price limit needs to be specified. A transactions will fail if buying token costs more than the price limit, or if selling token gives less than the price limit. Those situations can happen when multiple independent parties try to interact with the bonding curve concurrently.
+Community tokens can be bought or sold using band.js, or by sending a `buy` or `sell` transaction to the bonding curve contract. Note that when buying or selling, a price limit needs to be specified. A transactions will fail if buying the tokens costs more than the price limit, or if selling the tokens gives less than the price limit. Those situations can happen when multiple independent parties try to interact with the bonding curve concurrently.
 
 ```javascript
 // Get the community's bonding curve address
@@ -72,4 +72,4 @@ await communityClient
 
 ## Liquidity Spread
 
-Liquidity spread controls the difference between buying and selling prices of community token. The variable can be set via [Governance Parameters](/docs/parameters.md) under name `bonding:liquidity_spread`. High liquidity spread makes it more difficult for malicious actors to perform [Front-running Attacks](https://en.wikipedia.org/wiki/Front_running). However, high spread also leads to community members receive less BAND when they cash out their community token. Revenue from liquidity spread is sent to address specified by parameter `bonding:revenue_beneficiary`. The default value is the address that created the community.
+Liquidity spread controls the difference between buying and selling prices of community token. The variable can be set via [Governance Parameters](/docs/parameters.md) under name `bonding:liquidity_spread`. High liquidity spread makes it more difficult for malicious actors to perform [Front-running Attacks](https://en.wikipedia.org/wiki/Front_running). However, high spread also leads to community members receiving less BAND when they sell their community tokens. Revenue from the liquidity spread is sent to address specified by parameter `bonding:revenue_beneficiary`. The default value is the address that created the community.

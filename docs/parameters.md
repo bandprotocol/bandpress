@@ -2,7 +2,7 @@
 
 ## What are Governance Parameters
 
-Governance parameters dictate how other smart contracts in the community perform logics. For instance, parameter `bonding:liquidity_spread` controls the spread between buy and sell curve of the community's [Bonding Curve](/docs/bonding-curve.md). Governance parameters contract is deployed when a community is created. Developers can access the address of governance contract using band.js.
+Governance parameters dictate how other smart contracts in the community perform logics. For instance, parameter `bonding:liquidity_spread` controls the spread between the buy and sell curve of the community's [Bonding Curve](/docs/bonding-curve.md). Governance parameters contract is deployed when a community is created. Developers can access the address of governance contract using band.js.
 
 ```javascript
 // Get the community's governance parameters address

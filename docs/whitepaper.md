@@ -1,20 +1,54 @@
 # Band Protocol Technical Whitepaper
 
-<!-- Online data in digital community is often unreliable. Centrally curated data source is biased or provide no access for the general public. Paid reviews are engaged to provide biased reviews of products or places. On the other hand, public data in open community such as various social media platforms are unreliable because there is no incentive for people to moderate such content. One can observe many fake news in recent U.S. Presidential Election, phlishing bots on Twitter, or fake upvotes on Reddit to further one's own agenda. Data is becoming more and more essential in the new information age and undeniably there is a general need for reliable online data source.
+## Abstract
 
-Band Protocol is a decentralized data curation protocol. Our protocol incentivizes curators around the world to coordinate and ensure reliable data through token staking and bonding curve mechanism. We propose a solution where database or registries can be created around personalized tokens - which are used as an economic incentive for people to curate and moderate data while punish those that propose inaccurate information. These information can be organized as a token-curated registry or other forms of data, Band Protocol is a general blockchain protocol to create token-curated registries and communities, each with its own token and bonding curve.
+Decentralized applications have huge potential to disrupt traditional businesses by replacing centralized middleman with an automatically-executed, trustless smart contracts. In web2.0, centralized corporates act as gatekeepers who store and distribute data in a way that is most profitable to them. Web3.0, the decentralized web, has promised a paradigm shift to restore data ownership and return the internet to the hands of users.
 
-Band Token is the native utility token on the delegated-proof-of-stake Band Chain, built on top of Tendermint with Plasma implementation. Band Token is used to secure the network, provide global liquidity to every Community Token, and act as a governance token for future protocol upgrade. -->
+However, decentralized applications still need to rely on data to operate and function in a trustless way. Smart contracts currently have no easy way to access real-world information making its use case rather limited. At presence, current decentralized applications rely on centralized data providers, which represents a single point of failure and defeat the purpose of being decentralized in the first place.
 
-[[toc]]
+Band is an open protocol that facilitates the governance of data used in decentralized blockchain systems. The protocol functions as an open standard for data handling and data management for any decentralized program or application that requires trusted and reliable data. This whitepaper outlines how Band Protocol intends to solve data accessibility and data reliability in a fully decentralized manner. This includes how Band provides data endpoint such that any smart contracts can easily consume real-world data and data governance mechanism to ensure data integrity.
+
+While, Band is initially built on top of Ethereum with a working implementation on the Rinkeby Testnet, the protocol itself is blockchain agnostic and will eventually be supported on all major smart contract platforms including Tendermint/Cosmos. Band’s vision is to become the go-to decentralized world’s database which any decentralized program or applications can rely on for trusted data.
+
+<!-- [[toc]] -->
 
 ## Introduction
 
-<!-- talk about both sides of the problems: smart contracts can't easily data + data is not reliable -->
+All blockchain platforms in existence that operate and execute code ‘trustlessly’ in smart contracts suffer from the same centralizing issues that arise when needing to use external data points. Many decentralized systems rely on being able to perform basic tasks and computations that require external data feed points such as asset price, inter-chain communications, real-world events and external web API interactions.
 
-TODO
+### Data Availability Problem
 
-### Use Cases
+Existing data availability solutions for blockchain smart contracts either depend on highly critical central points of failure or are subject to asynchronous interactions which causes delays and complicates the smart contract logic execution.
+
+Essentially, **smart contracts cannot access data by themselves** - there is no simple and intuitive query interface for decentralized applications to receive real-world data. Until decentralized applications can interface real-world external data inputs into simple function calls, there will be significant barriers in adoption of the technology and the accessibility for developers to realize new applications
+
+### Need for Trusted and Reliable Data
+
+In the permissionless environments of decentralized systems the economic incentive and temptation to corrupt and attack critical data sources of a systems operation can be significant. Without strong incentive mechanisms to ensure high quality and reliable data provision, decentralized systems and applications will persistently suffer from these security risks.
+
+For example, if an external data source provided by an _oracle_ controls the data inputs to a smart contract, then it has the sole ability to determine the response and
+behavior of that smart contract. The data source essentially controls that smart contract - if the oracle is compromised then so is the smart contract and all the systems depending on it, creating a significantly weak point in the security and censorship resistance characteristics of blockchains.
+
+For decentralized applications to continue to be able to become increasingly sophisticated and useful, they must be able to use and replicate equivalent tools used in centralized settings for their decentralized system counterparts. Ultimately this enables developers to build the decentralized applications of tomorrow that will improve people's lives.
+
+### Data Management: Smart Contract Component Layer Solution
+
+Band Protocol is a Web3.0 component layer solution for managing data that resolves the data availability and reliability problem for blockchains in the Web3 technology stack. DApps using Band Protocol consume data via BAND public smart contract data points rather than through oracles that are external to the blockchain the dApp is built on. **BAND data feeds are community-curated data sources**, providing a framework for dApp users and developers alike to self moderate, curate and manage the data sources such that they can be trusted and reliable for their intended purposes.
+
+By creating a standard framework for the community governance of data, Band can create a socially scalable method for the widespread adoption and integration of trusted data that all dApps can utilize.
+
+Band data interfaces are source and application agnostic, meaning they can be applied for any purpose that the community governing and curating the data deems fit. Sources can be aggregated using mean, median or mode and can be sourced from multiple sources such as centralized external feeds or aggregated smart contract data.
+
+Example of these use cases includes:
+
+- Asset price feed including crypto-fiat, traditional securities and commodities price. Decentralized financial applications rely on these external price feed in order to build decentralized lending, algorithmic stablecoin, derivative trading, etc.
+- Event feed including sport event, IoT data output, real-world payment settlement, etc. Many smart contract logics need to depend on these data to initiate the right smart contract call. For example, prediction market can be easily built using our sport event feed without having to rely on token holders resolving the outcome for every contract created.
+- Identity data including other relevant information such as credit score, educational background, and work experiences. Decentralized exchange and marketplace are some of the potential applications that will need to rely on such data.
+- Location data including GPS location. Any decentralized applications that need to leverage maps can rely on such data.
+
+Most importantly **Band does not define how the data is treated, rather it provides the means for a community to collectively decide how it will be used and curated.** No assumptions are made as to how the data should be curated and treated by Band, this power is placed entirely in the hands of the community that wishes to use that data for their decentralized applications, creating optimally incentivized participants that align with a common goal of creating a reliable data source for their decentralized applications.
+
+Beyond furthering the goal of truly decentralized world, Band Protocol is also building an ecosystem of private data sharing between private enterprises. Many data are sensitive and held custodian by many private enterprises who have no easy way to freely and securely share data among the right stakeholders. Band Protocol extends our Web 3.0 support to cover such private information sharing to enable the creation of World Database including crucial and useful information such as identity and credit score.
 
 ## Band Protocol Overview
 
@@ -170,7 +204,7 @@ Token holders can collectively build a public dataset with [Token-Curated Regist
 
 #### How does TCR Curation Work?
 
-[IMAGE]
+![](/assets/tcr-flow.png)
 
 1. A candidate **applies** for an entry to be listed on the TCR by staking `min_deposit` dataset token. The entry gets automatically listed if it is not challenged for `apply_stage_length` duration.
 
@@ -195,8 +229,6 @@ A TCR can power the curation group's query interface with two possible interface
 - `bool getData(bytes32)` checks for an entry's existence in the TCR.
 - `bytes32 getData(uint256)` gets the `n`^th entry currently residing in the TCR.
 
-[IMAGE]
-
 ### Delegated Dataset Curation
 
 While TCR is suitable for low volume data that requires attention from the whole community, Token-Curated DataSouce (TCD) is a method to objective data with higher volume. TCD is in many ways similar to [Delegated Proof of Stake](https://en.bitcoinwiki.org/wiki/DPoS) consensus. **Token holders** collectively elect data providers by staking their token in the name of the candidates. **Data providers** have the authority to provide data to the public, and earn a portion of the fees collected from data queries.
@@ -207,7 +239,7 @@ While TCR is suitable for low volume data that requires attention from the whole
 
 #### How does TCD Curation Work?
 
-[IMAGE]
+![](/assets/tcd-flow.png)
 
 - A token holder who wishes to become a data provider deploys **Data Source Contract**. She then **registers** to become a provider candidate by staking `min_provider_stake` token.
 
@@ -227,8 +259,6 @@ External data consumers query for data using the query interface, which aggregat
 
 - **Number**: The final result is the [Median](https://en.wikipedia.org/wiki/Median) value among all the results.
 - **Bytes32**: The final result is the [Majority](https://en.wikipedia.org/wiki/Majority) value among all the results, or failure if there is no majority.
-
-[IMAGE]
 
 ## Potential Issues and Limitations
 
