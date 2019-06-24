@@ -17,7 +17,7 @@ module.exports = {
       { text: "Explorer", link: "https://data.bandprotocol.com" },
       {
         text: "Curation Portal",
-        link: "https://app-wip.rinkeby.bandprotocol.com"
+        link: "https://app.bandprotocol.com"
       }
     ]
   }
